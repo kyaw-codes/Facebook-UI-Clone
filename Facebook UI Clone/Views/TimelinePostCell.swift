@@ -12,6 +12,8 @@ class TimelinePostCell: LBTAListCell<String> {
     
     fileprivate var profileImageView = CircularImageView(width: 48, image: #imageLiteral(resourceName: "profile"))
     
+    var onLikeButtonLongPressed: ((UILongPressGestureRecognizer) -> Void) = {_ in}
+    
     fileprivate var postTextLabel = UILabel(text: "丁寧に丁寧に、あらゆることを感じたくて。信じたくて、諦めたくなくて。来年も真っ直ぐに、生きていたいです。今年もたくさんたくさんありがとう、本当にありがとう。心身ともに皆様の健康を、心からお祈りしています。良い時間を過ごしてね", font: .systemFont(ofSize: 16), numberOfLines: 3)
     
     fileprivate var nameLabel = UILabel(text: "Kasumi Arimura", font: .boldSystemFont(ofSize: 18))
@@ -39,5 +41,11 @@ class TimelinePostCell: LBTAListCell<String> {
                 postTextLabel, spacing: 16).withMargins(.allSides(12)),
                 imageGrid.view,
                 buttonStack, spacing: 2)
+        
+        likeButton.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:))))
+    }
+    
+    @objc func handleLongPress(sender: UILongPressGestureRecognizer) {
+        onLikeButtonLongPressed(sender)
     }
 }

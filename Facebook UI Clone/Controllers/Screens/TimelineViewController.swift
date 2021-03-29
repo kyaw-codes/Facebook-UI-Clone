@@ -75,6 +75,14 @@ class TimelineViewController: LBTAListHeaderController<TimelinePostCell, String,
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 8, left: 0, bottom: 0, right: 0)
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as? TimelinePostCell else { fatalError("Post cell not found!") }
+        cell.onLikeButtonLongPressed = { [weak self] gesture in
+            debugPrint(gesture.view!.frame)
+        }
+        return cell
+    }
 }
 
 struct Preview: PreviewProvider {
